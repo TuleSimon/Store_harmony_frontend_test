@@ -61,6 +61,7 @@ import kotlinx.coroutines.launch
 fun CartScreen(
     mainViewModel: MainViewModel = hiltViewModel(),
     goToAddress: () -> Unit,
+    goToConfirmed: () -> Unit,
     onBackPressed: () -> Unit
 ) {
 
@@ -93,6 +94,7 @@ fun CartScreen(
                         loading.value = false
                         scope.launch(Dispatchers.Main) {
                             Toasty.success(context, R.string.items_checked_out).show()
+                            goToConfirmed()
                         }
                     },
                     onError = {

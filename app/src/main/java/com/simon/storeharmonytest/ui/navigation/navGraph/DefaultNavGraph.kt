@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import com.simon.storeharmonytest.LocalNavControllerProvider
 import com.simon.storeharmonytest.ui.screens.cart.CartScreen
 import com.simon.storeharmonytest.ui.screens.homescreen.HomeScreen
+import com.simon.storeharmonytest.ui.screens.order.OrderConfirmed
 import com.simon.storeharmonytest.ui.screens.profile.UserProfileScreen
 import com.simon.storeharmonytest.ui.screens.viewProducts.ViewProductsScreen
 import com.simon.storeharmonytest.ui.screens.welcome.WelcomeScreen
@@ -75,10 +76,30 @@ fun DefaultNavGraph(navController: NavHostController, startDestination: MyScreen
             CartScreen(mainViewModel,
                 goToAddress = {
                     navController.navigate(MyScreens.UserProfileScreen.route)
+                },
+                goToConfirmed = {
+                    navController.navigate(MyScreens.OrderScreen.route)
                 }) {
                 navController.navigateUp()
             }
         }
+
+        composable(route = MyScreens.OrderScreen.route) {
+            OrderConfirmed(
+                goHome = {
+                    navController.navigate(MyScreens.UserHomeScreen.route) {
+                        launchSingleTop = true
+                        try {
+                            navController.popBackStack(MyScreens.UserCartScreen.route, true)
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                }) {
+                navController.navigateUp()
+            }
+        }
+
     }
 
 

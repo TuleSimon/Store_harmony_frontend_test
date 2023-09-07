@@ -10,6 +10,7 @@ sealed class MyScreens(val route: String) {
     object ViewProductScreen : MyScreens("view_product")
     object UserHomeScreen : MyScreens("home")
     object UserCartScreen : MyScreens("cart")
+    object OrderScreen : MyScreens("order")
 
 }
 
